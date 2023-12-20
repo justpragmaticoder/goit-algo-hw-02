@@ -65,31 +65,31 @@ while True:
 
     choice = input("Choose option: ")
 
-    if choice == Command.CREATE_TICKET.value:
-        generate_tickets()
-    elif choice == Command.HANDLE_NEXT_TICKET.value:
-        process_request()
-    elif choice == Command.HANDLE_ALL_TICKETS.value:
-        if ticket_queue.empty():
-            print("Tickets queue is empty. Plz, create a ticket")
-        else:
-            while not ticket_queue.empty():
-                process_request()
-                print("All tickets were handled.")
-    elif choice == Command.IMITATE_FULL_CYCLE.value:
-        tickets_qty = get_ticket_qty()
+    try:
+        if choice == Command.CREATE_TICKET.value:
+            generate_tickets()
+        elif choice == Command.HANDLE_NEXT_TICKET.value:
+            process_request()
+        elif choice == Command.HANDLE_ALL_TICKETS.value:
+            if ticket_queue.empty():
+                print("Tickets queue is empty. Plz, create a ticket")
+            else:
+                while not ticket_queue.empty():
+                    process_request()
+                    print("All tickets were handled.")
+        elif choice == Command.IMITATE_FULL_CYCLE.value:
+            tickets_qty = get_ticket_qty()
 
-        try:
             generate_tickets(tickets_qty)
 
             print("Starting to process tickets.")
 
             for _ in range(tickets_qty):
                 process_request()
-        except KeyboardInterrupt:
-            print("\nInterrupted by user.")
-    elif choice == Command.QUIT.value:
-        print("Programm has finished current session. Have a good day :)")
-        break
-    else:
-        print("Wrong choise. Try again.")
+        elif choice == Command.QUIT.value:
+            print("Programm has finished current session. Have a good day :)")
+            break
+        else:
+            print("Wrong choise. Try again.")
+    except KeyboardInterrupt:
+        print("\nInterrupted by user.")
